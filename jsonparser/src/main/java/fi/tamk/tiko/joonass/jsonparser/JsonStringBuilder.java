@@ -18,7 +18,7 @@ public class JsonStringBuilder {
                 ret += addTabs(tabs + 2) + "}\n";
             } else {
                 ret += addTabs(tabs);
-                ret += String.format("  \"%s\": %s\n", key, (JsonElement) obj.getMap().get(key));
+                ret += String.format("  \"%s\": %s,\n", key, (JsonElement) obj.getMap().get(key));
 
             }
         }
