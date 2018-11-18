@@ -22,11 +22,13 @@ public class JsonObject extends JsonElement<LinkedHashMap>{
             map.put(key, new JsonNumberElement((Double) value));
         } if(value instanceof JsonObject) {
             map.put(key, (JsonObject) value);
+        } if(value == null){
+            map.put(key, null);
         }
     }
 
     public String toString(){
-        return map.toString();
+        return JsonStringBuilder.build(this);
     }
 
     public Set getSet(){

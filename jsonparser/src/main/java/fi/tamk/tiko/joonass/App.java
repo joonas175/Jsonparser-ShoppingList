@@ -25,6 +25,7 @@ public class App
         obj3.put("Kikkelinpituus", 0.2);
         obj2.put("kolmasjaska", obj3);
         obj.put("ToinenJaska", obj2);
-        System.out.println(JsonStringBuilder.build(obj));
+        obj.put("Nulliarvo", null);
+        System.out.println(obj);
     }
 }
