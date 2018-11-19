@@ -14,7 +14,7 @@ public class JsonObject extends JsonElement<LinkedHashMap>{
     }
 
     public void put(String key, Object value){
-        if(value instanceof String){
+        /*if(value instanceof String){
             map.put(key, new JsonStringElement(value.toString()));
         } else if(value instanceof Integer){
             map.put(key, new JsonNumberElement((Integer) value));
@@ -24,6 +24,12 @@ public class JsonObject extends JsonElement<LinkedHashMap>{
             map.put(key, (JsonObject) value);
         } if(value == null){
             map.put(key, null);
+        }*/
+
+        if(value instanceof JsonObject) {
+            map.put(key, (JsonObject) value);
+        } else {
+            map.put(key, JsonElement.createElementFromObj(value));
         }
     }
 
