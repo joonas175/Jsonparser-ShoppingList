@@ -27,6 +27,14 @@ public class JsonObject extends JsonElement<LinkedHashMap>{
         }
     }
 
+    public void put(String key, Object[] values){
+        JsonArray array = new JsonArray();
+        for(Object element : values){
+            array.addToArray(element);
+        }
+        map.put(key, array);
+    }
+
     public String toString(){
         return JsonStringBuilder.build(this);
     }
