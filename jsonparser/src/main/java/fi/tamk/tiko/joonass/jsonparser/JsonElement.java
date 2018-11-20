@@ -34,6 +34,8 @@ public abstract class JsonElement<T>{
             returnVal = (JsonObject) obj;
         } else if (obj instanceof JsonArray){
             returnVal = (JsonArray) obj;
+        } else if(obj instanceof Boolean){
+            returnVal = new JsonBooleanElement((Boolean) obj);
         } else {
             return null;
         }

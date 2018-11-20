@@ -45,7 +45,7 @@ public class JsonObject extends JsonElement<LinkedHashMap>{
     public String toString(){
         String ret = "{";
         for(int i = 0; i < map.keySet().size(); i++){
-            ret += "\"" + map.keySet().toArray()[i] + "\": " + map.get(map.keySet().toArray()[i]);
+            ret += "\"" + map.keySet().toArray()[i] + "\":" + map.get(map.keySet().toArray()[i]);
             if(i < map.keySet().size() - 1){
                 ret += ",";
             }

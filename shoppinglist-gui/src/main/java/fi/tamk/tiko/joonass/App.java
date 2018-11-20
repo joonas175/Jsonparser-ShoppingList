@@ -4,8 +4,6 @@ import fi.tamk.tiko.joonass.jsonparser.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -101,6 +99,5 @@ public class App extends Application
 
         return menubar;
     }
-
 
 }
