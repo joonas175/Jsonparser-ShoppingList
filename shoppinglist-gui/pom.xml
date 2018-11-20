@@ -40,6 +40,23 @@
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.1.1</version>
+          <executions>
+            <execution>
+              <id>bundle-sources</id>
+              <phase>package</phase>
+              <goals>
+                <!-- produce source artifact for main project sources -->
+                <goal>jar-no-fork</goal>
+
+                <!-- produce source artifact for project test sources -->
+                <goal>test-jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
@@ -59,6 +76,16 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <mainClass>fi.tamk.tiko.joonass.App</mainClass>
+              </manifest>
+              <manifestEntries>
+                <Class-Path>jsonparser.jar</Class-Path>
+              </manifestEntries>
+            </archive>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -79,6 +106,31 @@
                   <target>8</target>
               </configuration>
           </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.0.1</version>
+          <configuration>
+          </configuration>
+          <executions>
+            <execution>
+              <id>resource-bundles</id>
+              <phase>package</phase>
+              <goals>
+                <!-- produce source artifact for main project sources -->
+                <goal>resource-bundle</goal>
+
+                <!-- produce source artifact for project test sources -->
+                <goal>test-resource-bundle</goal>
+              </goals>
+              <configuration>
+                <detectOfflineLinks>false</detectOfflineLinks>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
+
+
   </build>
 </project>

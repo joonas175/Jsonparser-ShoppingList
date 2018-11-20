@@ -21,10 +21,11 @@ public class App extends Application
     BorderPane mainPane;
     Scene scene;
 
-
     public static void main( String[] args )
     {
-        System.out.println( "" );
+        System.out.println("Author: Joonas Salojarvi");
+        JsonObject obj = new JsonObject();
+        obj.put("Stringi:", "asd");
         Application.launch(args);
     
     }
