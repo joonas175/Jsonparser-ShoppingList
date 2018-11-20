@@ -12,23 +12,52 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * Hello world!
+ * Main class for UI of ShoppingList app
  *
+ * This class handles the creation and launch of the UI
+ * @author Joonas Salojarvi
+ * @version 2018.11.20
+ * @since 1.8
  */
 public class App extends Application
 {
+    /**
+     * The shopping list itself
+     */
     ListView listView;
+
+    /**
+     * Pane for handling the place of elements on the app
+     */
     BorderPane mainPane;
+
+    /**
+     * Main scene
+     */
     Scene scene;
 
+
+    /**
+     * Main method for starting the JavaFX Application
+     * @param args Launch arguments
+     */
     public static void main( String[] args )
     {
         System.out.println("Author: Joonas Salojarvi");
         JsonObject obj = new JsonObject();
+        //For testing dependency
         obj.put("Stringi:", "asd");
         Application.launch(args);
     
     }
+
+    /**
+     * Method to be called when starting the application.
+     *
+     * Handles calling other methods for JavaFX object creation.
+     * Sets up the scene.
+     * @param stage Primary window
+     */
     public void start(Stage stage) {
         scene = createMainScene();
         initializeShoppingList();
@@ -39,6 +68,9 @@ public class App extends Application
         stage.show();
     }
 
+    /**
+     * Sets up buttons on the window.
+     */
     private void initializeButtons() {
         VBox vbox = new VBox();
 
@@ -56,10 +88,18 @@ public class App extends Application
         mainPane.setRight(vbox);
     }
 
+    /**
+     * Removes item from the shopping list.
+     */
     private void removeItem() {
         listView.getItems().remove(listView.getFocusModel().getFocusedItem());
     }
 
+    /**
+     * Creates the shopping list
+     *
+     * Initializes the JavaFX list view used as a shopping list.
+     */
     private void initializeShoppingList() {
         listView = new ListView();
         listView.setMaxWidth(300);
@@ -73,6 +113,12 @@ public class App extends Application
 
     }
 
+    /**
+     * Initializes the main scene
+     *
+     * Creates the core elements of the main scene, like BorderPane
+     * @return The scene that was created in this method
+     */
     public Scene createMainScene(){
         mainPane = new BorderPane();
         mainPane.setTop(createMenuBar());
@@ -80,6 +126,12 @@ public class App extends Application
         return scene;
     }
 
+    /**
+     * Initializes the menu bar
+     *
+     * Adds needed elements for menu bar
+     * @return Menubar that was created in this method
+     */
     private MenuBar createMenuBar() {
         MenuBar menubar = new MenuBar();
 

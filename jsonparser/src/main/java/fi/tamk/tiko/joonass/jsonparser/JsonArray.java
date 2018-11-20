@@ -2,6 +2,15 @@ package fi.tamk.tiko.joonass.jsonparser;
 
 import java.util.ArrayList;
 
+/**
+ * Class used for Json arrays.
+ *
+ * This class handles storing Json arrays. It also returns arrays as Json strings.
+ *
+ * @author Joonas Salojarvi
+ * @version 2018.11.20
+ * @since 1.8
+ */
 public class JsonArray extends JsonElement {
 
     ArrayList<JsonElement> values;

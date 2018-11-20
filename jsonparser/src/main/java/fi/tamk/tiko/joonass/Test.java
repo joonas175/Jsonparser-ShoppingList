@@ -6,10 +6,20 @@ import fi.tamk.tiko.joonass.jsonparser.JsonObject;
 import fi.tamk.tiko.joonass.jsonparser.JsonStringBuilder;
 
 /**
- * 
+ * Testing class for JsonParser
+ *
+ * Used for testing all the objects in this package.
+ *
+ * @author Joonas Salojarvi
+ * @version 2018.11.20
+ * @since 1.8
  */
 public class Test
 {
+    /**
+     * Main method
+     * @param args Launch arguments
+     */
     public static void main( String[] args )
     {
         System.out.println("Author: Joonas Salojarvi");

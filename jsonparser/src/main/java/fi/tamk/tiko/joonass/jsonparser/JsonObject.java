@@ -6,6 +6,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Json object class, which contains keys and elements linked together.
+ *
+ * Utilizes LinkedHashMap to connect key and element. All element types in this package are supported, even
+ * other Json objects.
+ *
+ * @author Joonas Salojarvi
+ * @version 2018.11.20
+ * @since 1.8
+ */
 public class JsonObject extends JsonElement<LinkedHashMap>{
     LinkedHashMap<String,JsonElement> map;
 

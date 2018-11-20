@@ -5,6 +5,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Class for writing Json objects in to a file
+ *
+ * Applies correct formatting to JsonObjects by using JsonStringBuilder
+ *
+ * @author Joonas Salojarvi
+ * @version 2018.11.20
+ * @since 1.8
+ */
 public class JsonFileWriter {
     File file;
 

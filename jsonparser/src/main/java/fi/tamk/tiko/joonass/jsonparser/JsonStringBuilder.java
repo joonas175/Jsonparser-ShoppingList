@@ -1,6 +1,14 @@
 package fi.tamk.tiko.joonass.jsonparser;
 
-
+/**
+ * Formats given Json string to a more readable format.
+ *
+ * Adds spaces and newlines etc.
+ *
+ * @author Joonas Salojarvi
+ * @version 2018.11.20
+ * @since 1.8
+ */
 public class JsonStringBuilder {
 
     public static String build(JsonObject obj){
