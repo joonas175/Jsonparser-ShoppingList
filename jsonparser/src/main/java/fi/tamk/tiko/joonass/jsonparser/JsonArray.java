@@ -4,18 +4,35 @@ import java.util.ArrayList;
 
 public class JsonArray extends JsonElement {
 
-    ArrayList<Object> values;
+    ArrayList<JsonElement> values;
 
     public JsonArray(){
-        values = new ArrayList<Object>();
+        values = new ArrayList<JsonElement>();
     }
 
-    public void addToArray(Object element){
+    public void addToArray(JsonElement element){
         values.add(element);
     }
 
     @Override
     public String toString() {
-        return null;
+        String ret = "[";
+        for(int i = 0; i < values.size(); i++){
+            ret += values.get(i).toString();
+            if(i < values.size() - 1){
+                ret += ",";
+            }
+        }
+        /*for(JsonElement element : values){
+            ret += element + ",";
+        }*/
+        ret += "]";
+        return ret;
     }
+
+    public ArrayList<JsonElement> getArray(){
+        return values;
+    }
+
+
 }

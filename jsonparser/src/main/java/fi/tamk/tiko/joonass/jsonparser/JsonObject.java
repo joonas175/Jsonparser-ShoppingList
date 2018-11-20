@@ -33,16 +33,28 @@ public class JsonObject extends JsonElement<LinkedHashMap>{
         }
     }
 
-    public void put(String key, Object[] values){
-        JsonArray array = new JsonArray();
-        for(Object element : values){
-            array.addToArray(element);
+    public void putArray(String key, Object... values){
+        if(values == null){
+            map.put(key,null);
+        } else {
+            JsonArray array = new JsonArray();
+            for (Object element : values) {
+                array.addToArray(JsonElement.createElementFromObj(element));
+            }
+            map.put(key, array);
         }
-        map.put(key, array);
     }
 
     public String toString(){
-        return JsonStringBuilder.build(this);
+        String ret = "{";
+        for(int i = 0; i < map.keySet().size(); i++){
+            ret += "\"" + map.keySet().toArray()[i] + "\": " + map.get(map.keySet().toArray()[i]);
+            if(i < map.keySet().size() - 1){
+                ret += ",";
+            }
+        }
+        ret += "}";
+        return ret;
     }
 
     public Set getSet(){

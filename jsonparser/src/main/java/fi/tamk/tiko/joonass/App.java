@@ -1,5 +1,6 @@
 package fi.tamk.tiko.joonass;
 
+import fi.tamk.tiko.joonass.jsonparser.JsonArray;
 import fi.tamk.tiko.joonass.jsonparser.JsonObject;
 import fi.tamk.tiko.joonass.jsonparser.JsonStringBuilder;
 
@@ -19,13 +20,16 @@ public class App
         obj2.put("Name", "Jaska");
         obj2.put("Ikä", 6);
         obj2.put("Kikkelinpituus", 0.2);
-        JsonObject obj3 = new JsonObject();
+        /*JsonObject obj3 = new JsonObject();
         obj3.put("Name", "Jaska");
         obj3.put("Ikä", 6);
         obj3.put("Kikkelinpituus", 0.2);
         obj2.put("kolmasjaska", obj3);
         obj.put("ToinenJaska", obj2);
-        obj.put("Nulliarvo", null);
+        obj.put("Nulliarvo", null);*/
+        obj.putArray("Taulukko", "asd", obj2);
+        //System.out.println(JsonStringBuilder.build(obj));
         System.out.println(obj);
+
     }
 }
