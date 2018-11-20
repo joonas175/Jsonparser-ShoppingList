@@ -30,6 +30,10 @@ public abstract class JsonElement<T>{
             returnVal = new JsonNumberElement((Integer) obj);
         } else if(obj instanceof Double){
             returnVal = new JsonNumberElement((Double) obj);
+        } else if (obj instanceof JsonObject){
+            returnVal = (JsonObject) obj;
+        } else if (obj instanceof JsonArray){
+            returnVal = (JsonArray) obj;
         } else {
             return null;
         }

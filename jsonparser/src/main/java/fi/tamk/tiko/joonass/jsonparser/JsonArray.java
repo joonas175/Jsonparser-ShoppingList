@@ -10,6 +10,13 @@ public class JsonArray extends JsonElement {
         values = new ArrayList<JsonElement>();
     }
 
+    public JsonArray(Object... objects){
+        values = new ArrayList<JsonElement>();
+        for(Object obj : objects) {
+            addToArray(JsonElement.createElementFromObj(obj));
+        }
+    }
+
     public void addToArray(JsonElement element){
         values.add(element);
     }

@@ -34,15 +34,12 @@ public class JsonObject extends JsonElement<LinkedHashMap>{
     }
 
     public void putArray(String key, Object... values){
-        if(values == null){
-            map.put(key,null);
-        } else {
-            JsonArray array = new JsonArray();
-            for (Object element : values) {
-                array.addToArray(JsonElement.createElementFromObj(element));
-            }
-            map.put(key, array);
+        JsonArray array = new JsonArray();
+        for (Object element : values) {
+            array.addToArray(JsonElement.createElementFromObj(element));
         }
+        map.put(key, array);
+
     }
 
     public String toString(){

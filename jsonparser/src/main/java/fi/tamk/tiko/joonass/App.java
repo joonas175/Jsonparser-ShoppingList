@@ -27,7 +27,8 @@ public class App
         obj2.put("kolmasjaska", obj3);
         obj.put("ToinenJaska", obj2);
         obj.put("Nulliarvo", null);*/
-        obj.putArray("Taulukko", "asd", obj2);
+        JsonArray array = new JsonArray("asd", 1, 5, 1);
+        obj.putArray("Taulukko", "asd", array);
         //System.out.println(JsonStringBuilder.build(obj));
         System.out.println(obj);
 
