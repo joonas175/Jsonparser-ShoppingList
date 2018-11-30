@@ -5,11 +5,14 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -67,21 +70,43 @@ public class App extends Application
         scene = createMainScene();
         initializeShoppingList();
         initializeButtons();
+        initializeBottomRow();
 
         stage.setTitle("Shopping list app");
         stage.setScene(scene);
         stage.show();
     }
 
+    private void initializeBottomRow() {
+        HBox bottomRow = new HBox();
+        mainPane.setBottom(bottomRow);
+        TextField amountInput = new TextField();
+        amountInput.setMaxWidth(tableView.getMaxWidth() / 5);
+
+        TextField nameInput = new TextField();
+        nameInput.setMaxWidth((tableView.getMaxWidth() * 4) / 5);
+        bottomRow.getChildren().addAll(amountInput, nameInput);
+
+        Button addButton = new Button("Add");
+        bottomRow.getChildren().add(addButton);
+
+        for(Node node : bottomRow.getChildren()){
+            bottomRow.setMargin(node, new Insets(3,10,3,2));
+        }
+
+        addButton.setDefaultButton(true);
+        addButton.setOnAction((e) -> shoppingList.add(new ShoppingListItem(amountInput.getText(), nameInput.getText())));
+
+
+    }
+
+
     /**
      * Sets up buttons on the window.
      */
     private void initializeButtons() {
         VBox vbox = new VBox();
-
-
-        Button add = new Button("Add");
-        vbox.getChildren().add(add);
+        
 
         Button modify = new Button("Modify");
         vbox.getChildren().add(modify);
@@ -125,6 +150,9 @@ public class App extends Application
         tableView.setItems(shoppingList);
 
         tableView.getColumns().addAll(amountColumn, itemColumn);
+
+
+
 
 
     }
