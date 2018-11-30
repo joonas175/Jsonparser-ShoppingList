@@ -1,15 +1,15 @@
 {
   "Name": "Jaska",
   "Ikä": 6,
-  "Kikkelinpituus": 0.2,
+  "Randomluku": 0.2,
   "Mies": true,
   "ToinenJaska": {
-    "Name": "Jaska",
+    "Name": "JokuToinen",
     "Ikä": 6,
-    "Kikkelinpituus": 0.2,
+    "Sormenpaksuus": 0.2,
     "kolmasjaska": {
-      "Name": "Jaska",
-      "Ikä": 6,
+      "Name": "Teukka",
+      "Ikä": 54,
       "Kikkelinpituus": 0.2
     }
   },

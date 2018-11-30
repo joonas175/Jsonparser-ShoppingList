@@ -3,9 +3,12 @@ package fi.tamk.tiko.joonass;
 import fi.tamk.tiko.joonass.jsonparser.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -24,7 +27,9 @@ public class App extends Application
     /**
      * The shopping list itself
      */
-    ListView listView;
+    TableView<ShoppingListItem> tableView;
+
+    ObservableList<ShoppingListItem> shoppingList;
 
     /**
      * Pane for handling the place of elements on the app
@@ -82,7 +87,6 @@ public class App extends Application
         vbox.getChildren().add(modify);
 
         Button remove = new Button("Remove");
-        remove.setOnAction((e) -> removeItem());
         vbox.getChildren().add(remove);
 
         mainPane.setRight(vbox);
@@ -91,9 +95,9 @@ public class App extends Application
     /**
      * Removes item from the shopping list.
      */
-    private void removeItem() {
+    /*private void removeItem() {
         listView.getItems().remove(listView.getFocusModel().getFocusedItem());
-    }
+    }*/
 
     /**
      * Creates the shopping list
@@ -101,14 +105,26 @@ public class App extends Application
      * Initializes the JavaFX list view used as a shopping list.
      */
     private void initializeShoppingList() {
-        listView = new ListView();
-        listView.setMaxWidth(300);
+        tableView = new TableView();
+        tableView.setMaxWidth(300);
+        tableView.setEditable(true);
 
-        mainPane.setCenter(listView);
-        mainPane.setAlignment(listView, Pos.CENTER_LEFT);
-        listView.getItems().add(new Text("Test"));
-        listView.getItems().add(new Text("Test"));
+        mainPane.setCenter(tableView);
+        mainPane.setAlignment(tableView, Pos.CENTER_LEFT);
 
+        TableColumn amountColumn = new TableColumn("Amount");
+        amountColumn.setMinWidth(tableView.getMaxWidth() / 5);
+        TableColumn itemColumn = new TableColumn("Item");
+        itemColumn.setMinWidth((tableView.getMaxWidth() * 4) / 5);
+
+
+        amountColumn.setCellValueFactory(new PropertyValueFactory<ShoppingListItem,String>("amount"));
+        itemColumn.setCellValueFactory(new PropertyValueFactory<ShoppingListItem,String>("itemName"));
+
+        shoppingList = FXCollections.observableArrayList();
+        tableView.setItems(shoppingList);
+
+        tableView.getColumns().addAll(amountColumn, itemColumn);
 
 
     }
