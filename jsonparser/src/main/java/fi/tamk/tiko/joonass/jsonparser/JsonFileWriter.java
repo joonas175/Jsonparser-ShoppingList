@@ -20,6 +20,9 @@ public class JsonFileWriter {
     public JsonFileWriter(String fileName){
         file = new File(fileName);
     }
+    public JsonFileWriter(File file){
+        this.file = file;
+    }
     public void write(JsonObject obj, boolean append) {
         //BufferedWriter writer1 = new BufferedWriter(new FileWriter("asd", true));
         try {

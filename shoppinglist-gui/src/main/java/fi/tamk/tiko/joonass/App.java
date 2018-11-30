@@ -3,19 +3,28 @@ package fi.tamk.tiko.joonass;
 import fi.tamk.tiko.joonass.jsonparser.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+
+import java.io.File;
 
 /**
  * Main class for UI of ShoppingList app
@@ -44,6 +53,7 @@ public class App extends Application
      */
     Scene scene;
 
+    Stage stage;
 
     /**
      * Main method for starting the JavaFX Application
@@ -67,6 +77,7 @@ public class App extends Application
      * @param stage Primary window
      */
     public void start(Stage stage) {
+        this.stage = stage;
         scene = createMainScene();
         initializeShoppingList();
         initializeButtons();
@@ -80,10 +91,10 @@ public class App extends Application
     private void initializeBottomRow() {
         HBox bottomRow = new HBox();
         mainPane.setBottom(bottomRow);
-        TextField amountInput = new TextField();
+        TextField amountInput = new TextField("Amount");
         amountInput.setMaxWidth(tableView.getMaxWidth() / 5);
 
-        TextField nameInput = new TextField();
+        TextField nameInput = new TextField("Item");
         nameInput.setMaxWidth((tableView.getMaxWidth() * 4) / 5);
         bottomRow.getChildren().addAll(amountInput, nameInput);
 
@@ -95,7 +106,16 @@ public class App extends Application
         }
 
         addButton.setDefaultButton(true);
-        addButton.setOnAction((e) -> shoppingList.add(new ShoppingListItem(amountInput.getText(), nameInput.getText())));
+        addButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(!(nameInput.getText().equals(""))){
+                    shoppingList.add(new ShoppingListItem(amountInput.getText(), nameInput.getText()));
+                    amountInput.setText("");
+                    nameInput.setText("");
+                }
+            }
+        });
 
 
     }
@@ -106,14 +126,19 @@ public class App extends Application
      */
     private void initializeButtons() {
         VBox vbox = new VBox();
-        
 
-        Button modify = new Button("Modify");
-        vbox.getChildren().add(modify);
 
-        Button remove = new Button("Remove");
+
+        Button remove = new Button("Remove selected");
         vbox.getChildren().add(remove);
+        remove.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                shoppingList.remove(tableView.getSelectionModel().getSelectedItem());
+            }
+        });
 
+        vbox.setPadding(new Insets(6));
         mainPane.setRight(vbox);
     }
 
@@ -153,6 +178,29 @@ public class App extends Application
 
 
 
+        amountColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        amountColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<ShoppingListItem, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<ShoppingListItem, String> t) {
+                        ((ShoppingListItem) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        ).setAmount(t.getNewValue());
+                    }
+                }
+        );
+        itemColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        itemColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<ShoppingListItem, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<ShoppingListItem, String> t) {
+                        ((ShoppingListItem) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        ).setItemName(t.getNewValue());
+                    }
+                }
+        );
+
 
 
     }
@@ -188,6 +236,13 @@ public class App extends Application
 
         MenuItem saveToTXT = new MenuItem("Save to .txt");
         save.getItems().add(saveToTXT);
+        saveToTXT.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                saveToTXTEvent();
+            }
+        });
+
 
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction(e -> Platform.exit());
@@ -197,4 +252,15 @@ public class App extends Application
         return menubar;
     }
 
+    public void saveToTXTEvent(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save as JSON to TXT");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(".txt", "*.txt"));
+        File file = fileChooser.showSaveDialog(stage);
+        SavingUtil.saveAsJSON(file, shoppingList);
+
+    }
+
 }
+
