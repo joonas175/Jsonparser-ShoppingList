@@ -25,7 +25,7 @@ public class Test
         obj.put("Ikä", 6);
         obj.put("Randomluku", 0.2);
         obj.put("Mies", true);
-        JsonObject obj2 = new JsonObject();
+        /*JsonObject obj2 = new JsonObject();
         obj2.put("Name", "JokuToinen");
         obj2.put("Ikä", 6);
         obj2.put("Sormenpaksuus", 0.2);
@@ -37,10 +37,12 @@ public class Test
         obj.put("ToinenJaska", obj2);
         obj.put("Nulliarvo", null);
         JsonArray array = new JsonArray("asd", 1, 5, 1, true);
-        obj.putArray("Taulukko", "asd", array);
+        obj.putArray("Taulukko", "asd", array);*/
         JsonFileWriter writer = new JsonFileWriter("test.txt");
         writer.write(obj,false);
-        JsonObject parsedObject = JsonParser.parseObjectFromString("{\"Name\":\"Jaska\",\"Ikä\":6,\"Randomluku\":0.2,\"Mies\":true,\"ToinenJaska\":{\"Name\":\"JokuToinen\",\"Ikä\":6,\"Sormenpaksuus\":0.2,\"kolmasjaska\":{\"Name\":\"Teukka\",\"Ikä\":54,\"Kikkelinpituus\":0.2}},\"Nulliarvo\":null,\"Taulukko\":[\"asd\",[\"asd\",1,5,1,true]]}");
+        System.out.println(obj);
+        JsonObject parsedObject = new JsonParser().parseObjectFromString("{\"Name\":\"Jaska\",\"Ikä\":6,\"Randomluku\":0.2,\"Mies\":true}");
         System.out.println(parsedObject);
+
     }
 }

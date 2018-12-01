@@ -2,26 +2,5 @@
   "Name": "Jaska",
   "Ikä": 6,
   "Randomluku": 0.2,
-  "Mies": true,
-  "ToinenJaska": {
-    "Name": "JokuToinen",
-    "Ikä": 6,
-    "Sormenpaksuus": 0.2,
-    "kolmasjaska": {
-      "Name": "Teukka",
-      "Ikä": 54,
-      "Kikkelinpituus": 0.2
-    }
-  },
-  "Nulliarvo": null,
-  "Taulukko": [
-    "asd",
-    [
-      "asd",
-      1,
-      5,
-      1,
-      true
-    ]
-  ]
+  "Mies": true
 }
