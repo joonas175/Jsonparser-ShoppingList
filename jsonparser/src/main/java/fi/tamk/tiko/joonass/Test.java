@@ -1,9 +1,6 @@
 package fi.tamk.tiko.joonass;
 
-import fi.tamk.tiko.joonass.jsonparser.JsonArray;
-import fi.tamk.tiko.joonass.jsonparser.JsonFileWriter;
-import fi.tamk.tiko.joonass.jsonparser.JsonObject;
-import fi.tamk.tiko.joonass.jsonparser.JsonStringBuilder;
+import fi.tamk.tiko.joonass.jsonparser.*;
 
 /**
  * Testing class for JsonParser
@@ -43,5 +40,7 @@ public class Test
         obj.putArray("Taulukko", "asd", array);
         JsonFileWriter writer = new JsonFileWriter("test.txt");
         writer.write(obj,false);
+        JsonObject parsedObject = JsonParser.parseObjectFromString("{\"Name\":\"Jaska\",\"Ikä\":6,\"Randomluku\":0.2,\"Mies\":true,\"ToinenJaska\":{\"Name\":\"JokuToinen\",\"Ikä\":6,\"Sormenpaksuus\":0.2,\"kolmasjaska\":{\"Name\":\"Teukka\",\"Ikä\":54,\"Kikkelinpituus\":0.2}},\"Nulliarvo\":null,\"Taulukko\":[\"asd\",[\"asd\",1,5,1,true]]}");
+        System.out.println(parsedObject);
     }
 }
