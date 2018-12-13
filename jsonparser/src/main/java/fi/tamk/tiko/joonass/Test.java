@@ -41,7 +41,7 @@ public class Test
         JsonFileWriter writer = new JsonFileWriter("test.txt");
         writer.write(obj,false);
         System.out.println(obj);
-        JsonObject parsedObject = new JsonParser().parseObjectFromString("{\"Name\":\"Jaska\",\"Ikä\":6,\"Randomluku\":0.2,\"Mies\":true}");
+        JsonObject parsedObject = new JsonParser().parseObjectFromString(obj.toString());
         System.out.println(parsedObject);
 
     }
