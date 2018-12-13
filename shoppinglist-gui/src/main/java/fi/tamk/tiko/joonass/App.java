@@ -145,9 +145,6 @@ public class App extends Application
     /**
      * Removes item from the shopping list.
      */
-    /*private void removeItem() {
-        listView.getItems().remove(listView.getFocusModel().getFocusedItem());
-    }*/
 
     /**
      * Creates the shopping list
@@ -167,7 +164,6 @@ public class App extends Application
         TableColumn itemColumn = new TableColumn("Item");
         itemColumn.setMinWidth((tableView.getMaxWidth() * 4) / 5);
 
-
         amountColumn.setCellValueFactory(new PropertyValueFactory<ShoppingListItem,String>("amount"));
         itemColumn.setCellValueFactory(new PropertyValueFactory<ShoppingListItem,String>("itemName"));
 
@@ -175,8 +171,6 @@ public class App extends Application
         tableView.setItems(shoppingList);
 
         tableView.getColumns().addAll(amountColumn, itemColumn);
-
-
 
         amountColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         amountColumn.setOnEditCommit(
@@ -235,31 +229,15 @@ public class App extends Application
 
         MenuItem saveShoppingList = new MenuItem("Save shopping list");
         save.getItems().add(saveShoppingList);
-        saveShoppingList.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                saveShoppingListEvent();
-            }
-        });
+        saveShoppingList.setOnAction((e) -> saveShoppingListEvent());
 
         MenuItem saveToTXT = new MenuItem("Save to .txt as JSON");
         save.getItems().add(saveToTXT);
-        saveToTXT.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                saveToTXTEvent();
-            }
-        });
+        saveToTXT.setOnAction((e) -> saveToTXTEvent());
 
-
-        MenuItem openFile = new MenuItem("Save to .txt as JSON");
+        MenuItem openFile = new MenuItem("Open shopping list");
         file.getItems().add(openFile);
-        openFile.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                openFileEvent();
-            }
-        });
+        openFile.setOnAction((e) -> openFileEvent());
 
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction(e -> Platform.exit());
@@ -274,8 +252,9 @@ public class App extends Application
         fileChooser.setTitle("Open .slf");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Shopping list file (.slf)", "*.slf"));
-        File file = fileChooser.showSaveDialog(stage);
+        File file = fileChooser.showOpenDialog(stage);
         shoppingList = OpenFileUtil.openShoppingList(file);
+        tableView.setItems(shoppingList);
     }
 
     private void saveShoppingListEvent() {
