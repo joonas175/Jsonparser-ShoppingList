@@ -233,8 +233,16 @@ public class App extends Application
         Menu save = new Menu("Save");
         menubar.getMenus().add(save);
 
+        MenuItem saveShoppingList = new MenuItem("Save shopping list");
+        save.getItems().add(saveShoppingList);
+        saveShoppingList.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                saveShoppingListEvent();
+            }
+        });
 
-        MenuItem saveToTXT = new MenuItem("Save to .txt");
+        MenuItem saveToTXT = new MenuItem("Save to .txt as JSON");
         save.getItems().add(saveToTXT);
         saveToTXT.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -244,6 +252,15 @@ public class App extends Application
         });
 
 
+        MenuItem openFile = new MenuItem("Save to .txt as JSON");
+        file.getItems().add(openFile);
+        openFile.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                openFileEvent();
+            }
+        });
+
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction(e -> Platform.exit());
         file.getItems().add(exit);
@@ -252,6 +269,29 @@ public class App extends Application
         return menubar;
     }
 
+    private void openFileEvent() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open .slf");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Shopping list file (.slf)", "*.slf"));
+        File file = fileChooser.showSaveDialog(stage);
+        shoppingList = OpenFileUtil.openShoppingList(file);
+    }
+
+    private void saveShoppingListEvent() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save as shopping list file");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Shopping list file (.slf)", "*.slf"));
+        File file = fileChooser.showSaveDialog(stage);
+        SavingUtil.saveShoppingList(file, shoppingList);
+    }
+
+    /**
+     * Method to be called when save to txt button is pressed.
+     *
+     * This method creates a new filechooser window and then calls saving util to save the file.
+     */
     public void saveToTXTEvent(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save as JSON to TXT");
