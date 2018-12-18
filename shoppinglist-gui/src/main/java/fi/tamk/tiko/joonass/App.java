@@ -224,16 +224,14 @@ public class App extends Application
         Menu file = new Menu("File");
         menubar.getMenus().add(file);
 
-        Menu save = new Menu("Save");
-        menubar.getMenus().add(save);
 
         MenuItem saveShoppingList = new MenuItem("Save shopping list");
-        save.getItems().add(saveShoppingList);
+        file.getItems().add(saveShoppingList);
         saveShoppingList.setOnAction((e) -> saveShoppingListEvent());
 
-        MenuItem saveToTXT = new MenuItem("Save to .txt as JSON");
+        /*MenuItem saveToTXT = new MenuItem("Save to .txt as JSON");
         save.getItems().add(saveToTXT);
-        saveToTXT.setOnAction((e) -> saveToTXTEvent());
+        saveToTXT.setOnAction((e) -> saveToTXTEvent());*/
 
         MenuItem openFile = new MenuItem("Open shopping list");
         file.getItems().add(openFile);
@@ -262,22 +260,14 @@ public class App extends Application
         fileChooser.setTitle("Save as shopping list file");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Shopping list file (.slf)", "*.slf"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON (.txt)", "*.txt"));
         File file = fileChooser.showSaveDialog(stage);
-        SavingUtil.saveShoppingList(file, shoppingList);
-    }
-
-    /**
-     * Method to be called when save to txt button is pressed.
-     *
-     * This method creates a new filechooser window and then calls saving util to save the file.
-     */
-    public void saveToTXTEvent(){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save as JSON to TXT");
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(".txt", "*.txt"));
-        File file = fileChooser.showSaveDialog(stage);
-        SavingUtil.saveAsJSON(file, shoppingList);
+        System.out.println(file.getAbsolutePath());
+        if(file.getAbsolutePath().endsWith(".txt")){
+            SavingUtil.saveAsJSON(file, shoppingList);
+        } else if(file.getAbsolutePath().endsWith(".slf")){
+            SavingUtil.saveShoppingList(file, shoppingList);
+        }
 
     }
 
