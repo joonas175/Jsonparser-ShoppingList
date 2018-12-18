@@ -25,24 +25,22 @@ public class Test
         obj.put("Ikä", 6);
         obj.put("Randomluku", 0.2);
         obj.put("Mies", true);
-        /*JsonObject obj2 = new JsonObject();
+        JsonObject obj2 = new JsonObject();
         obj2.put("Name", "JokuToinen");
         obj2.put("Ikä", 6);
         obj2.put("Sormenpaksuus", 0.2);
         JsonObject obj3 = new JsonObject();
         obj3.put("Name", "Teukka");
         obj3.put("Ikä", 54);
-        obj3.put("Kikkelinpituus", 0.2);
+        obj3.put("Moi", 0.2);
         obj2.put("kolmasjaska", obj3);
         obj.put("ToinenJaska", obj2);
         obj.put("Nulliarvo", null);
         JsonArray array = new JsonArray("asd", 1, 5, 1, true);
-        obj.putArray("Taulukko", "asd", array);*/
+        obj.putArray("Taulukko", "asd", array);
         JsonFileWriter writer = new JsonFileWriter("test.txt");
         writer.write(obj,false);
         System.out.println(obj);
-        JsonObject parsedObject = new JsonParser().parseObjectFromString(obj.toString());
-        System.out.println(parsedObject);
 
     }
 }
