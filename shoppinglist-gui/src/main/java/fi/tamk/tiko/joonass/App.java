@@ -31,7 +31,7 @@ import java.io.File;
  *
  * This class handles the creation and launch of the UI
  * @author Joonas Salojarvi
- * @version 2018.11.20
+ * @version 2018.12.18
  * @since 1.8
  */
 public class App extends Application
@@ -70,7 +70,7 @@ public class App extends Application
         System.out.println("Author: Joonas Salojarvi");
         JsonObject obj = new JsonObject();
         //For testing dependency
-        obj.put("Stringi:", "asd");
+        obj.put("Stringi", "asd");
         Application.launch(args);
     
     }
