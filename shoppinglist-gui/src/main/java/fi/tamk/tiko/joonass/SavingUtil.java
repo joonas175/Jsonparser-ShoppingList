@@ -43,6 +43,13 @@ public class SavingUtil {
         fileWriter.write(parent ,false);
 
     }
+
+    /**
+     * Writes an .slf file out of the given shopping list.
+     *
+     * @param file File to be saved as
+     * @param shoppingList Shopping list to be saved
+     */
     public static void saveShoppingList(File file, ObservableList<ShoppingListItem> shoppingList) {
         String toBeSaved = "";
         for(ShoppingListItem item : shoppingList){

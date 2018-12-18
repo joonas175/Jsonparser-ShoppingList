@@ -9,8 +9,25 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Class that handles opening shopping list files.
+ *
+ * Has only one method, which parses through a shopping list file and creates a new
+ * shopping list out of it.
+ * @author Joonas Salojarvi
+ * @version 2018.12.18
+ * @since 1.8
+ */
 public class OpenFileUtil {
 
+    /**
+     * Parses through given file and creates a new ObservableList out of it.
+     *
+     * Only supports this app's own format .slf
+     *
+     * @param file File to be opened
+     * @return Shopping list as an ObservableList
+     */
     public static ObservableList<ShoppingListItem> openShoppingList(File file) {
         ObservableList<ShoppingListItem> list = FXCollections.observableArrayList();
         try {

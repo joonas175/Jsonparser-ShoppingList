@@ -13,6 +13,9 @@ import java.util.ArrayList;
  */
 public class JsonArray extends JsonElement {
 
+    /**
+     * All JsonElements contained in this class
+     */
     ArrayList<JsonElement> values;
 
     public JsonArray(){
@@ -26,6 +29,10 @@ public class JsonArray extends JsonElement {
         }
     }
 
+    /**
+     * Adds a new element to the array
+     * @param element
+     */
     public void addToArray(JsonElement element){
         values.add(element);
     }
@@ -46,6 +53,10 @@ public class JsonArray extends JsonElement {
         return ret;
     }
 
+    /**
+     * Returns the array
+     * @return Array of JsonElements in this class
+     */
     public ArrayList<JsonElement> getArray(){
         return values;
     }

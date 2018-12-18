@@ -37,10 +37,13 @@ import java.io.File;
 public class App extends Application
 {
     /**
-     * The shopping list itself
+     * The tableview of the shopping list.
      */
     TableView<ShoppingListItem> tableView;
 
+    /**
+     * The shopping list itself. Used by tableview.
+     */
     ObservableList<ShoppingListItem> shoppingList;
 
     /**
@@ -53,6 +56,9 @@ public class App extends Application
      */
     Scene scene;
 
+    /**
+     * Main stage of this application.
+     */
     Stage stage;
 
     /**
@@ -88,6 +94,12 @@ public class App extends Application
         stage.show();
     }
 
+    /**
+     * Adds needed elements to the bottom of the window.
+     *
+     * Adds textfields and "add" button to the bottom of the window. Adds needed event calls for
+     * said items.
+     */
     private void initializeBottomRow() {
         HBox bottomRow = new HBox();
         mainPane.setBottom(bottomRow);
@@ -122,12 +134,12 @@ public class App extends Application
 
 
     /**
-     * Sets up buttons on the window.
+     * Sets up buttons on the window on the right side of the window.
+     *
+     * Creates vbox and adds buttons. Also adds events to said buttons.
      */
     private void initializeButtons() {
         VBox vbox = new VBox();
-
-
 
         Button remove = new Button("Remove selected");
         vbox.getChildren().add(remove);
@@ -142,9 +154,6 @@ public class App extends Application
         mainPane.setRight(vbox);
     }
 
-    /**
-     * Removes item from the shopping list.
-     */
 
     /**
      * Creates the shopping list
@@ -215,7 +224,7 @@ public class App extends Application
     /**
      * Initializes the menu bar
      *
-     * Adds needed elements for menu bar
+     * Adds needed elements for menu bar. Adds correct events to each menu item.
      * @return Menubar that was created in this method
      */
     private MenuBar createMenuBar() {
@@ -229,9 +238,6 @@ public class App extends Application
         file.getItems().add(saveShoppingList);
         saveShoppingList.setOnAction((e) -> saveShoppingListEvent());
 
-        /*MenuItem saveToTXT = new MenuItem("Save to .txt as JSON");
-        save.getItems().add(saveToTXT);
-        saveToTXT.setOnAction((e) -> saveToTXTEvent());*/
 
         MenuItem openFile = new MenuItem("Open shopping list");
         file.getItems().add(openFile);
@@ -245,16 +251,30 @@ public class App extends Application
         return menubar;
     }
 
+    /**
+     * Event called by the "open" menu item.
+     *
+     * This method launches a new open dialog to open a file. Calls OpenFileUtil class
+     * to create a new shopping list and tableview of the opened file. Only .slf (shoppinglist file) files can
+     * be opened.
+     */
     private void openFileEvent() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open .slf");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Shopping list file (.slf)", "*.slf"));
         File file = fileChooser.showOpenDialog(stage);
-        shoppingList = OpenFileUtil.openShoppingList(file);
-        tableView.setItems(shoppingList);
+        if(file != null) {
+            shoppingList = OpenFileUtil.openShoppingList(file);
+            tableView.setItems(shoppingList);
+        }
     }
 
+    /**
+     * Method that handles the UI of saving a file.
+     *
+     * Opens a new save dialog to save the current shopping list.
+     */
     private void saveShoppingListEvent() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save as shopping list file");
@@ -262,11 +282,14 @@ public class App extends Application
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Shopping list file (.slf)", "*.slf"));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON (.txt)", "*.txt"));
         File file = fileChooser.showSaveDialog(stage);
-        System.out.println(file.getAbsolutePath());
-        if(file.getAbsolutePath().endsWith(".txt")){
-            SavingUtil.saveAsJSON(file, shoppingList);
-        } else if(file.getAbsolutePath().endsWith(".slf")){
-            SavingUtil.saveShoppingList(file, shoppingList);
+        try {
+            if (file.getAbsolutePath().endsWith(".txt")) {
+                SavingUtil.saveAsJSON(file, shoppingList);
+            } else if (file.getAbsolutePath().endsWith(".slf")) {
+                SavingUtil.saveShoppingList(file, shoppingList);
+            }
+        } catch(NullPointerException e){
+            System.out.println("No file specified");
         }
 
     }

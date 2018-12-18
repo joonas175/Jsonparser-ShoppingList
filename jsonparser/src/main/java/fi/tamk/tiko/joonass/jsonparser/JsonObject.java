@@ -17,24 +17,23 @@ import java.util.Set;
  * @since 1.8
  */
 public class JsonObject extends JsonElement<LinkedHashMap>{
+    /**
+     * Hashmap of all the elements contained in this object.
+     */
     LinkedHashMap<String,JsonElement> map;
 
     public JsonObject(){
         map = new LinkedHashMap<String, JsonElement>();
     }
 
+    /**
+     * Adds a new element inside this object.
+     *
+     * Calls JsonElements static method to create a new JsonElement from given object.
+     * @param key key
+     * @param value value to be converted into JsonElement
+     */
     public void put(String key, Object value){
-        /*if(value instanceof String){
-            map.put(key, new JsonStringElement(value.toString()));
-        } else if(value instanceof Integer){
-            map.put(key, new JsonNumberElement((Integer) value));
-        } else if(value instanceof Double){
-            map.put(key, new JsonNumberElement((Double) value));
-        } if(value instanceof JsonObject) {
-            map.put(key, (JsonObject) value);
-        } if(value == null){
-            map.put(key, null);
-        }*/
 
         if(value instanceof JsonObject) {
             map.put(key, (JsonObject) value);
@@ -44,6 +43,14 @@ public class JsonObject extends JsonElement<LinkedHashMap>{
     }
 
 
+    /**
+     * Adds a series of values into this object as an array.
+     *
+     * Creates a new JsonArray.
+     *
+     * @param key key
+     * @param values All objects to be added as an array
+     */
     public void putArray(String key, Object... values){
         JsonArray array = new JsonArray();
         for (Object element : values) {
@@ -53,6 +60,11 @@ public class JsonObject extends JsonElement<LinkedHashMap>{
 
     }
 
+    /**
+     * Returns this JsonObject as a string, in correct JSON format.
+     *
+     * @return This object as JSON
+     */
     public String toString(){
         String ret = "{";
         for(int i = 0; i < map.keySet().size(); i++){
@@ -65,9 +77,18 @@ public class JsonObject extends JsonElement<LinkedHashMap>{
         return ret;
     }
 
+    /**
+     * Returns all keys in this object's hashmap as a set.
+     * @return keyset
+     */
     public Set getSet(){
         return map.keySet();
     }
+
+    /**
+     * Returns whole hashmap of this object
+     * @return hashmap
+     */
     public Map getMap(){
         return map;
     }

@@ -25,16 +25,37 @@ public abstract class JsonElement<T>{
         this.value = value;
     }
 
+    /**
+     * Returns value of this element
+     * @return value
+     */
     public T getValue(){
         return value;
     }
 
+    /**
+     * Sets a new value for this element
+     * @param value new value
+     */
     public void setValue(T value){
         this.value = value;
     }
 
+    /**
+     * All JsonElements must implement this method.
+     *
+     * Return value of JsonElement in correct format.
+     * @return String representation of value
+     */
     public abstract String toString();
 
+    /**
+     * Static method for creating new JsonElements from given objects.
+     *
+     * Supports string, numbers, other JsonObjects, JsonArrays and boolean values.
+     * @param obj Object
+     * @return JsonElement
+     */
     public static JsonElement createElementFromObj(Object obj){
         JsonElement returnVal;
         if(obj instanceof String){

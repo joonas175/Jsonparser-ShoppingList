@@ -15,14 +15,35 @@ import java.io.IOException;
  * @since 1.8
  */
 public class JsonFileWriter {
+    /**
+     * File to be written as
+     */
     File file;
 
+    /**
+     * Constructor for creating a new file out of given path string.
+     * @param fileName File to be written as.
+     */
     public JsonFileWriter(String fileName){
         file = new File(fileName);
     }
+
+    /**
+     * Constructor for using a pre-existing File
+     * @param file File to be saved as
+     */
     public JsonFileWriter(File file){
         this.file = file;
     }
+
+    /**
+     * Writes given JsonObject into a file.
+     *
+     * Calls JsonStringBuilder to make the given object into a more readable format. (indents etc.)
+     *
+     * @param obj Object to be written.
+     * @param append If the file should be overwritten or not
+     */
     public void write(JsonObject obj, boolean append) {
         //BufferedWriter writer1 = new BufferedWriter(new FileWriter("asd", true));
         try {
